@@ -65,47 +65,117 @@ body::after {
 .screen.active { display: flex; }
 
 /* ============================================
-   ADMIN PANEL
+   GLOBAL LOCK BUTTON (all screens)
    ============================================ */
-#adminScreen {
+#globalLockBtn {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  z-index: 400;
+  background: none;
+  border: none;
+  font-size: clamp(16px, 2vw, 24px);
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  padding: 12px;
+  line-height: 1;
+}
+#globalLockBtn:hover { opacity: 0.8; }
+
+/* ============================================
+   WELCOME SCREEN
+   ============================================ */
+#welcomeScreen {
   flex-direction: column;
   align-items: center;
-  padding: 3vh 4vw;
-  overflow-y: auto;
-  gap: 2vh;
+  justify-content: center;
+  gap: 3.5vh;
 }
 
-.admin-title {
-  font-size: clamp(18px, 3vw, 36px);
+.welcome-op-name {
+  font-size: clamp(16px, 3.5vw, 42px);
   color: var(--amber);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: 1vh;
+  letter-spacing: 0.3em;
+  font-weight: bold;
 }
 
-.admin-section {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5vh;
-}
-
-.admin-row {
+.welcome-duration {
   display: flex;
   align-items: center;
-  gap: 1vw;
-  flex-wrap: wrap;
+  gap: 8px;
 }
-
-.admin-label {
-  font-size: clamp(12px, 1.4vw, 16px);
+.welcome-duration-label {
+  font-size: clamp(11px, 1.4vw, 16px);
   color: var(--gray);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  min-width: 160px;
+}
+.welcome-duration-input {
+  background: #111;
+  border: 1px solid var(--gray-dark);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: clamp(18px, 2.5vw, 32px);
+  padding: 6px 10px;
+  width: 70px;
+  text-align: center;
+  outline: none;
+}
+.welcome-duration-input:focus { border-color: var(--amber); }
+.welcome-duration-colon {
+  font-size: clamp(18px, 2.5vw, 32px);
+  color: var(--gray);
 }
 
+.welcome-prompt {
+  font-size: clamp(12px, 1.8vw, 22px);
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.welcome-team-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--amber);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: clamp(20px, 4vw, 48px);
+  text-align: center;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  width: 80%;
+  max-width: 600px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.welcome-team-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 2px 20px rgba(0,255,0,0.2);
+}
+
+.begin-btn {
+  background: transparent;
+  border: 2px solid var(--green);
+  color: var(--green);
+  font-family: var(--font);
+  font-size: clamp(16px, 2.5vw, 30px);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 16px 48px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.begin-btn:hover {
+  background: var(--green);
+  color: var(--bg);
+}
+
+/* ============================================
+   SHARED STYLES
+   ============================================ */
 .admin-input {
   background: #111;
   border: 1px solid var(--gray-dark);
@@ -116,16 +186,12 @@ body::after {
   outline: none;
   transition: border-color 0.2s;
 }
-.admin-input:focus {
-  border-color: var(--amber);
-}
+.admin-input:focus { border-color: var(--amber); }
 .admin-input.small { width: 60px; text-align: center; }
 .admin-input.medium { width: 200px; }
 .admin-input.wide { width: 100%; max-width: 360px; }
 
-.admin-code-boxes {
-  display: flex; gap: 8px;
-}
+.admin-code-boxes { display: flex; gap: 8px; }
 .admin-code-box {
   width: 50px; height: 50px;
   background: #111;
@@ -151,134 +217,16 @@ body::after {
   cursor: pointer;
   transition: all 0.2s;
 }
-.admin-btn:hover {
-  background: var(--amber);
-  color: var(--bg);
-}
-.admin-btn.start {
-  border-color: var(--green);
-  color: var(--green);
-  font-size: clamp(16px, 2.2vw, 28px);
-  padding: 16px 48px;
-  margin-top: 2vh;
-}
-.admin-btn.start:hover {
-  background: var(--green);
-  color: var(--bg);
-}
+.admin-btn:hover { background: var(--amber); color: var(--bg); }
 .admin-btn.danger {
   border-color: #cc3333;
   color: #cc3333;
   font-size: clamp(11px, 1.2vw, 14px);
 }
-.admin-btn.danger:hover {
-  background: #cc3333;
-  color: var(--white);
-}
+.admin-btn.danger:hover { background: #cc3333; color: var(--white); }
 .admin-btn.small-btn {
   font-size: clamp(11px, 1.2vw, 14px);
   padding: 8px 16px;
-}
-
-.admin-separator {
-  width: 100%;
-  max-width: 600px;
-  border: none;
-  border-top: 1px solid #222;
-  margin: 1vh 0;
-}
-
-.advanced-toggle {
-  background: none;
-  border: none;
-  color: var(--gray-dim);
-  font-family: var(--font);
-  font-size: clamp(11px, 1.2vw, 14px);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  padding: 4px 0;
-}
-.advanced-toggle:hover { color: var(--gray); }
-.advanced-toggle .arrow { display: inline-block; transition: transform 0.2s; }
-.advanced-toggle.open .arrow { transform: rotate(90deg); }
-
-.advanced-panel {
-  display: none;
-  flex-direction: column;
-  gap: 1.5vh;
-  width: 100%;
-  max-width: 600px;
-}
-.advanced-panel.open { display: flex; }
-
-.admin-bottom-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 1vh;
-}
-
-/* ============================================
-   TEAM NAME SCREEN
-   ============================================ */
-#teamScreen {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3vh;
-}
-
-.team-op-name {
-  font-size: clamp(16px, 3vw, 36px);
-  color: var(--amber);
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-}
-
-.team-prompt {
-  font-size: clamp(14px, 2.5vw, 28px);
-  color: var(--gray);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-
-.team-input {
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid var(--amber);
-  color: var(--white);
-  font-family: var(--font);
-  font-size: clamp(20px, 4vw, 48px);
-  text-align: center;
-  text-transform: uppercase;
-  padding: 8px 16px;
-  width: 80%;
-  max-width: 600px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.team-input:focus {
-  border-color: var(--green);
-  box-shadow: 0 2px 20px rgba(0,255,0,0.2);
-}
-
-.begin-btn {
-  background: transparent;
-  border: 2px solid var(--green);
-  color: var(--green);
-  font-family: var(--font);
-  font-size: clamp(16px, 2.5vw, 30px);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  padding: 16px 48px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.begin-btn:hover {
-  background: var(--green);
-  color: var(--bg);
 }
 
 /* ============================================
@@ -344,9 +292,6 @@ body::after {
   text-shadow: 0 0 30px rgba(0,255,0,0.5);
   animation: none;
 }
-.clock.failed {
-  display: none;
-}
 
 @keyframes clockPulse {
   0%, 100% { opacity: 1; }
@@ -364,8 +309,7 @@ body::after {
   opacity: 0;
   pointer-events: none;
   z-index: 10;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
 .time-added-flash.show {
@@ -383,12 +327,8 @@ body::after {
   letter-spacing: 0.15em;
   line-height: 1;
 }
-.mission-failed-text {
-  color: var(--white);
-}
-.mission-complete-text {
-  color: var(--green);
-}
+.mission-failed-text { color: var(--white); }
+.mission-complete-text { color: var(--green); }
 .time-remaining-label {
   display: none;
   font-size: clamp(12px, 2vw, 24px);
@@ -457,12 +397,8 @@ body::after {
   box-shadow: 0 0 15px rgba(0,255,0,0.3);
   cursor: default;
 }
-.code-box.wrong {
-  animation: boxShake 0.3s ease-in-out;
-}
-.code-box.flash-red {
-  background: rgba(255,0,0,0.3);
-}
+.code-box.wrong { animation: boxShake 0.3s ease-in-out; }
+.code-box.flash-red { background: rgba(255,0,0,0.3); }
 .code-box.locked {
   background: rgba(80,0,0,0.4);
   border-color: #550000;
@@ -495,10 +431,7 @@ body::after {
   80% { transform: translateX(5px); }
 }
 
-.pips {
-  display: flex;
-  gap: 4px;
-}
+.pips { display: flex; gap: 4px; }
 .pip {
   width: clamp(6px, 0.8vw, 10px);
   height: clamp(6px, 0.8vw, 10px);
@@ -518,7 +451,7 @@ body::after {
   letter-spacing: 0.1em;
 }
 
-/* Corner buttons */
+/* Corner buttons (timer screen only) */
 .corner-btn {
   position: absolute;
   z-index: 100;
@@ -533,7 +466,6 @@ body::after {
 }
 .corner-btn:hover { opacity: 0.8; }
 
-.lock-btn { bottom: 8px; right: 8px; }
 .mute-btn { bottom: 8px; left: 8px; }
 .trophy-btn { bottom: 8px; left: 50%; transform: translateX(-50%); }
 
@@ -579,10 +511,7 @@ body::after {
 }
 
 /* PIN overlay */
-.pin-inputs {
-  display: flex;
-  gap: 8px;
-}
+.pin-inputs { display: flex; gap: 8px; }
 .pin-box {
   width: 50px; height: 55px;
   background: #0a0a0a;
@@ -596,9 +525,7 @@ body::after {
 }
 .pin-box:focus { border-color: var(--amber); }
 
-.pin-error {
-  animation: pinShake 0.3s ease-in-out;
-}
+.pin-error { animation: pinShake 0.3s ease-in-out; }
 @keyframes pinShake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-8px); }
@@ -643,9 +570,7 @@ body::after {
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.track-option.active-track .track-radio {
-  border-color: var(--amber);
-}
+.track-option.active-track .track-radio { border-color: var(--amber); }
 .track-option.active-track .track-radio::after {
   content: '';
   width: 6px; height: 6px;
@@ -703,16 +628,14 @@ body::after {
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.mute-checkbox.checked {
-  border-color: #cc3333;
-}
+.mute-checkbox.checked { border-color: #cc3333; }
 .mute-checkbox.checked::after {
   content: '✕';
   font-size: 10px;
   color: #cc3333;
 }
 
-/* Admin overlay (mid-session) */
+/* Admin overlay sections */
 .admin-overlay-section {
   width: 100%;
   display: flex;
@@ -747,10 +670,7 @@ body::after {
   cursor: pointer;
   text-transform: uppercase;
 }
-.time-preset-btn:hover {
-  background: var(--amber);
-  color: var(--bg);
-}
+.time-preset-btn:hover { background: var(--amber); color: var(--bg); }
 
 .box-status {
   display: flex;
@@ -777,10 +697,7 @@ body::after {
   cursor: pointer;
   text-transform: uppercase;
 }
-.reset-box-btn:hover {
-  background: #cc3333;
-  color: var(--white);
-}
+.reset-box-btn:hover { background: #cc3333; color: var(--white); }
 
 .overlay-btn {
   background: transparent;
@@ -793,18 +710,9 @@ body::after {
   padding: 10px 28px;
   cursor: pointer;
 }
-.overlay-btn:hover {
-  background: var(--amber);
-  color: var(--bg);
-}
-.overlay-btn.green {
-  border-color: var(--green);
-  color: var(--green);
-}
-.overlay-btn.green:hover {
-  background: var(--green);
-  color: var(--bg);
-}
+.overlay-btn:hover { background: var(--amber); color: var(--bg); }
+.overlay-btn.green { border-color: var(--green); color: var(--green); }
+.overlay-btn.green:hover { background: var(--green); color: var(--bg); }
 
 /* ============================================
    LEADERBOARD
@@ -857,14 +765,12 @@ body::after {
   gap: 3vh;
   overflow-y: auto;
 }
-
 #leaderboardScreen .lb-title {
   font-size: clamp(18px, 3.5vw, 42px);
   color: var(--amber);
   text-transform: uppercase;
   letter-spacing: 0.3em;
 }
-
 #leaderboardScreen .leaderboard-table td {
   font-size: clamp(14px, 2vw, 24px);
   padding: 10px 16px;
@@ -873,8 +779,7 @@ body::after {
   font-size: clamp(12px, 1.5vw, 18px);
   padding: 10px 16px;
 }
-
-.lb-admin-btn {
+.lb-back-btn {
   position: absolute;
   bottom: 16px;
   right: 16px;
@@ -888,17 +793,13 @@ body::after {
   cursor: pointer;
   z-index: 10;
 }
-.lb-admin-btn:hover { color: var(--gray); border-color: var(--gray); }
+.lb-back-btn:hover { color: var(--gray); border-color: var(--gray); }
 
 /* ============================================
-   MISSION FAILED / VICTORY OVERLAYS
+   MISSION FAILED / VICTORY
    ============================================ */
-#timerScreen.state-failed {
-  background: #cc0000;
-}
-#timerScreen.state-failed .top-zone {
-  justify-content: center;
-}
+#timerScreen.state-failed { background: #cc0000; }
+#timerScreen.state-failed .top-zone { justify-content: center; }
 #timerScreen.state-failed .clock { display: none; }
 #timerScreen.state-failed .op-header { color: var(--white); }
 #timerScreen.state-failed .mission-failed-text { display: block; }
@@ -907,9 +808,7 @@ body::after {
 #timerScreen.state-failed .code-hint { display: none; }
 #timerScreen.state-failed .timer-bg-pulse { display: none; }
 
-#timerScreen.state-victory {
-  background: #001a00;
-}
+#timerScreen.state-victory { background: #001a00; }
 #timerScreen.state-victory .mission-complete-text { display: block; }
 #timerScreen.state-victory .time-remaining-label { display: block; }
 #timerScreen.state-victory .bottom-zone { background: rgba(0,20,0,0.5); border-color: rgba(0,255,0,0.1); }
@@ -934,12 +833,8 @@ body::after {
   transform: translateX(-50%);
   z-index: 100;
 }
-.next-team-btn:hover {
-  background: var(--amber);
-  color: var(--bg);
-}
+.next-team-btn:hover { background: var(--amber); color: var(--bg); }
 
-/* Victory leaderboard inline */
 .victory-leaderboard {
   display: none;
   width: 100%;
@@ -953,29 +848,14 @@ body::after {
   align-items: center;
   animation: fadeIn 0.5s ease-out;
 }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* Victory compact state */
-#timerScreen.state-victory.compact .top-zone {
-  flex: 0 0 35%;
-}
-#timerScreen.state-victory.compact .bottom-zone {
-  display: none;
-}
-#timerScreen.state-victory.compact .victory-leaderboard {
-  flex: 0 0 55%;
-}
-#timerScreen.state-victory.compact .clock {
-  font-size: clamp(30px, 8vw, 100px);
-}
-#timerScreen.state-victory.compact .mission-complete-text {
-  font-size: clamp(16px, 4vw, 50px);
-}
+#timerScreen.state-victory.compact .top-zone { flex: 0 0 35%; }
+#timerScreen.state-victory.compact .bottom-zone { display: none; }
+#timerScreen.state-victory.compact .victory-leaderboard { flex: 0 0 55%; }
+#timerScreen.state-victory.compact .clock { font-size: clamp(30px, 8vw, 100px); }
+#timerScreen.state-victory.compact .mission-complete-text { font-size: clamp(16px, 4vw, 50px); }
 
-/* Flash green on victory */
 .victory-flash {
   position: fixed;
   inset: 0;
@@ -984,18 +864,13 @@ body::after {
   pointer-events: none;
   animation: victoryFlashAnim 0.3s ease-out forwards;
 }
-@keyframes victoryFlashAnim {
-  0% { opacity: 0.8; }
-  100% { opacity: 0; }
-}
+@keyframes victoryFlashAnim { 0% { opacity: 0.8; } 100% { opacity: 0; } }
 
 /* On-screen keyboard for touch */
 .onscreen-keyboard {
   display: none;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0; left: 0; right: 0;
   z-index: 50;
   background: #111;
   border-top: 1px solid #222;
@@ -1055,69 +930,22 @@ body::after {
 </head>
 <body>
 
-<!-- ======== ADMIN SCREEN ======== -->
-<div id="adminScreen" class="screen active">
-  <div class="admin-title">Mission Control</div>
+<!-- ======== GLOBAL LOCK BUTTON (always visible) ======== -->
+<button id="globalLockBtn" title="Admin">🔒</button>
 
-  <div class="admin-section">
-    <div class="admin-row">
-      <span class="admin-label">Timer Duration</span>
-      <input type="number" id="adminMinutes" class="admin-input small" min="0" max="99" value="18">
-      <span style="color:var(--gray)">:</span>
-      <input type="number" id="adminSeconds" class="admin-input small" min="0" max="59" value="00">
-    </div>
+<!-- ======== WELCOME SCREEN ======== -->
+<div id="welcomeScreen" class="screen active">
+  <div class="welcome-op-name" id="welcomeOpName">OPERATION IRON PANTHER</div>
 
-    <div class="admin-row">
-      <span class="admin-label">Exit Code</span>
-      <div class="admin-code-boxes">
-        <input type="text" class="admin-code-box" maxlength="1" value="K" data-idx="0">
-        <input type="text" class="admin-code-box" maxlength="1" value="I" data-idx="1">
-        <input type="text" class="admin-code-box" maxlength="1" value="N" data-idx="2">
-        <input type="text" class="admin-code-box" maxlength="1" value="D" data-idx="3">
-      </div>
-    </div>
+  <div class="welcome-duration">
+    <span class="welcome-duration-label">Time</span>
+    <input type="number" id="welcomeMinutes" class="welcome-duration-input" min="0" max="99" value="18">
+    <span class="welcome-duration-colon">:</span>
+    <input type="number" id="welcomeSeconds" class="welcome-duration-input" min="0" max="59" value="00">
   </div>
 
-  <button class="admin-btn start" id="startBtn">Start Mission</button>
-
-  <hr class="admin-separator">
-
-  <button class="advanced-toggle" id="advancedToggle">
-    <span class="arrow">▶</span> Advanced Settings
-  </button>
-
-  <div class="advanced-panel" id="advancedPanel">
-    <div class="admin-row">
-      <span class="admin-label">Operation Name</span>
-      <input type="text" id="adminOpName" class="admin-input wide" value="OPERATION IRON PANTHER">
-    </div>
-    <div class="admin-row">
-      <span class="admin-label">Attempts Per Box</span>
-      <input type="number" id="adminAttempts" class="admin-input small" min="1" max="10" value="3">
-    </div>
-    <div class="admin-row">
-      <span class="admin-label">Event ID</span>
-      <input type="text" id="adminEventId" class="admin-input medium" value="">
-    </div>
-    <div class="admin-row">
-      <span class="admin-label">Admin PIN</span>
-      <input type="text" id="adminPin" class="admin-input small" maxlength="4" value="0000" style="width:80px;">
-    </div>
-  </div>
-
-  <hr class="admin-separator">
-
-  <div class="admin-bottom-row">
-    <button class="admin-btn small-btn" id="showLeaderboardBtn">Show Leaderboard</button>
-    <button class="admin-btn danger small-btn" id="clearLeaderboardBtn">Clear Leaderboard</button>
-  </div>
-</div>
-
-<!-- ======== TEAM NAME SCREEN ======== -->
-<div id="teamScreen" class="screen">
-  <div class="team-op-name" id="teamOpName">OPERATION IRON PANTHER</div>
-  <div class="team-prompt">Enter Team Name</div>
-  <input type="text" class="team-input" id="teamNameInput" maxlength="50" placeholder="TEAM NAME" autocomplete="off">
+  <div class="welcome-prompt">Enter Team Name</div>
+  <input type="text" class="welcome-team-input" id="teamNameInput" maxlength="50" placeholder="TEAM NAME" autocomplete="off">
   <button class="begin-btn" id="beginBtn">Begin Mission</button>
 </div>
 
@@ -1145,10 +973,9 @@ body::after {
 
   <button class="next-team-btn" id="nextTeamBtn">Next Team</button>
 
-  <!-- Corner buttons -->
+  <!-- Timer corner buttons (mute + trophy only — lock is global) -->
   <button class="corner-btn mute-btn" id="muteBtn" title="Sound">🔊</button>
   <button class="corner-btn trophy-btn" id="trophyBtn" title="Leaderboard">🏆</button>
-  <button class="corner-btn lock-btn" id="lockBtn" title="Admin">🔒</button>
 
   <!-- Sound popup -->
   <div class="sound-popup" id="soundPopup">
@@ -1184,7 +1011,7 @@ body::after {
 <div id="leaderboardScreen" class="screen">
   <div class="lb-title">Mission Rankings</div>
   <div id="fullscreenLbBody" style="width:100%;max-width:800px;"></div>
-  <button class="lb-admin-btn" id="lbAdminBtn">Admin</button>
+  <button class="lb-back-btn" id="lbBackBtn">Back</button>
 </div>
 
 <!-- ======== PIN OVERLAY ======== -->
@@ -1202,13 +1029,14 @@ body::after {
   </div>
 </div>
 
-<!-- ======== ADMIN OVERLAY (mid-session) ======== -->
+<!-- ======== ADMIN OVERLAY (accessible from any screen) ======== -->
 <div class="overlay" id="adminOverlay">
   <div class="overlay-backdrop"></div>
-  <div class="overlay-content" style="min-width:300px;max-width:500px;">
+  <div class="overlay-content" style="min-width:320px;max-width:540px;">
     <div class="overlay-title">Admin Controls</div>
 
-    <div class="admin-overlay-section">
+    <!-- Timer controls — only visible during active session -->
+    <div class="admin-overlay-section" id="adminTimerSection" style="display:none;">
       <div class="admin-overlay-label">Add Time</div>
       <div class="admin-overlay-row">
         <button class="time-preset-btn" data-add="60">+1:00</button>
@@ -1223,7 +1051,7 @@ body::after {
       </div>
     </div>
 
-    <div class="admin-overlay-section">
+    <div class="admin-overlay-section" id="adminSetTimeSection" style="display:none;">
       <div class="admin-overlay-label">Set Time</div>
       <div class="admin-overlay-row">
         <input type="number" id="setTimeMin" class="admin-input small" min="0" max="99" placeholder="M">
@@ -1233,26 +1061,61 @@ body::after {
       </div>
     </div>
 
-    <div class="admin-overlay-section">
+    <div class="admin-overlay-section" id="adminBoxSection" style="display:none;">
       <div class="admin-overlay-label">Code Box Status</div>
       <div id="boxStatusContainer"></div>
     </div>
 
+    <!-- Settings — always visible -->
     <div class="admin-overlay-section">
-      <div class="admin-overlay-label">Change Exit Code</div>
+      <div class="admin-overlay-label">Exit Code</div>
       <div class="admin-overlay-row">
-        <div class="admin-code-boxes" id="overlayCodeBoxes">
-          <input type="text" class="admin-code-box" maxlength="1" data-idx="0">
-          <input type="text" class="admin-code-box" maxlength="1" data-idx="1">
-          <input type="text" class="admin-code-box" maxlength="1" data-idx="2">
-          <input type="text" class="admin-code-box" maxlength="1" data-idx="3">
+        <div class="admin-code-boxes" id="adminCodeBoxes">
+          <input type="text" class="admin-code-box" maxlength="1" value="K" data-idx="0">
+          <input type="text" class="admin-code-box" maxlength="1" value="I" data-idx="1">
+          <input type="text" class="admin-code-box" maxlength="1" value="N" data-idx="2">
+          <input type="text" class="admin-code-box" maxlength="1" value="D" data-idx="3">
         </div>
-        <button class="time-preset-btn" id="changeCodeBtn">Apply</button>
+        <button class="time-preset-btn" id="applyCodeBtn">Apply</button>
       </div>
-      <div style="font-size:11px;color:#cc3333;">Warning: resets all box progress</div>
+      <div id="codeChangeWarning" style="font-size:11px;color:#cc3333;display:none;">Warning: resets all box progress</div>
     </div>
 
-    <button class="overlay-btn green" id="resumeBtn">Resume</button>
+    <div class="admin-overlay-section">
+      <div class="admin-overlay-label">Operation Name</div>
+      <div class="admin-overlay-row">
+        <input type="text" id="adminOpName" class="admin-input wide" value="OPERATION IRON PANTHER">
+      </div>
+    </div>
+
+    <div class="admin-overlay-section">
+      <div class="admin-overlay-row" style="gap:16px;">
+        <div>
+          <div class="admin-overlay-label">Attempts/Box</div>
+          <input type="number" id="adminAttempts" class="admin-input small" min="1" max="10" value="3" style="margin-top:4px;">
+        </div>
+        <div>
+          <div class="admin-overlay-label">Event ID</div>
+          <input type="text" id="adminEventId" class="admin-input medium" value="" style="margin-top:4px;">
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-overlay-section">
+      <div class="admin-overlay-label">Admin PIN</div>
+      <div class="admin-overlay-row">
+        <input type="text" id="adminPin" class="admin-input small" maxlength="4" value="0000" style="width:80px;">
+      </div>
+    </div>
+
+    <div class="admin-overlay-section">
+      <div class="admin-overlay-row" style="justify-content:center;gap:12px;">
+        <button class="admin-btn small-btn" id="showLeaderboardBtn">Show Leaderboard</button>
+        <button class="admin-btn danger small-btn" id="clearLeaderboardBtn">Clear Leaderboard</button>
+      </div>
+    </div>
+
+    <button class="overlay-btn green" id="adminCloseBtn">Close</button>
   </div>
 </div>
 
@@ -1312,7 +1175,6 @@ try {
 // STATE
 // ============================================
 const state = {
-  // Admin settings
   opName: 'OPERATION IRON PANTHER',
   durationMin: 18,
   durationSec: 0,
@@ -1321,19 +1183,16 @@ const state = {
   eventId: new Date().toISOString().slice(0, 10),
   adminPin: '0000',
 
-  // Session
   teamName: '',
-  timeRemaining: 0,   // in seconds
+  timeRemaining: 0,
   timerInterval: null,
   isPaused: false,
   gameOver: false,
+  timerRunning: false, // true when a session is active (timer screen visible)
   selectedBox: -1,
   evaluating: false,
+  boxes: [],
 
-  // Per-box state
-  boxes: [], // { letter: '', solved: false, locked: false, strikes: 0 }
-
-  // Audio
   audioCtx: null,
   musicGain: null,
   sfxGain: null,
@@ -1341,31 +1200,21 @@ const state = {
   muted: false,
   musicVolume: 0.4,
   currentTrack: 1,
-  musicSources: {},
   musicBuffers: {},
   musicAvailable: { 1: false, 2: false, 3: false },
   currentMusicSource: null,
-  tickOscActive: false,
 
-  // Screen Wake Lock
   wakeLock: null,
-
-  // PIN callback
   pinCallback: null,
-
-  // Firebase listener
   fbListener: null,
   fbScores: [],
-
-  // Confirm callback
   confirmCallback: null,
-
-  // Long press timer for lock reset
   lockPressTimer: null,
+  previousScreen: 'welcomeScreen', // track which screen to return to from leaderboard
 };
 
 // ============================================
-// LOCALSTORAGE PERSISTENCE
+// LOCALSTORAGE
 // ============================================
 function saveSettings() {
   const s = {
@@ -1398,26 +1247,34 @@ function loadSettings() {
   } catch(e) {}
 }
 
+function populateWelcomeFromState() {
+  $('welcomeMinutes').value = state.durationMin;
+  $('welcomeSeconds').value = String(state.durationSec).padStart(2, '0');
+  $('welcomeOpName').textContent = state.opName;
+}
+
 function populateAdminFromState() {
-  $('adminMinutes').value = state.durationMin;
-  $('adminSeconds').value = String(state.durationSec).padStart(2, '0');
   $('adminOpName').value = state.opName;
   $('adminAttempts').value = state.attemptsPerBox;
   $('adminEventId').value = state.eventId;
   $('adminPin').value = state.adminPin;
-  const codeBoxes = document.querySelectorAll('#adminScreen .admin-code-box');
+  const codeBoxes = document.querySelectorAll('#adminCodeBoxes .admin-code-box');
   codeBoxes.forEach((b, i) => b.value = state.exitCode[i] || '');
 }
 
 function readAdminInputs() {
-  state.durationMin = parseInt($('adminMinutes').value) || 0;
-  state.durationSec = parseInt($('adminSeconds').value) || 0;
   state.opName = $('adminOpName').value || 'OPERATION IRON PANTHER';
   state.attemptsPerBox = Math.max(1, Math.min(10, parseInt($('adminAttempts').value) || 3));
   state.eventId = $('adminEventId').value || new Date().toISOString().slice(0, 10);
   state.adminPin = ($('adminPin').value || '0000').padStart(4, '0').slice(0, 4);
-  const codeBoxes = document.querySelectorAll('#adminScreen .admin-code-box');
+  const codeBoxes = document.querySelectorAll('#adminCodeBoxes .admin-code-box');
   state.exitCode = Array.from(codeBoxes).map(b => (b.value || 'A').toUpperCase().charAt(0));
+  saveSettings();
+}
+
+function readWelcomeInputs() {
+  state.durationMin = parseInt($('welcomeMinutes').value) || 0;
+  state.durationSec = parseInt($('welcomeSeconds').value) || 0;
   saveSettings();
 }
 
@@ -1448,14 +1305,11 @@ function initAudio() {
   state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   state.masterGain = state.audioCtx.createGain();
   state.masterGain.connect(state.audioCtx.destination);
-
   state.musicGain = state.audioCtx.createGain();
   state.musicGain.gain.value = state.musicVolume;
   state.musicGain.connect(state.masterGain);
-
   state.sfxGain = state.audioCtx.createGain();
   state.sfxGain.connect(state.masterGain);
-
   loadMusicTracks();
 }
 
@@ -1467,7 +1321,6 @@ async function loadMusicTracks() {
       const buf = await resp.arrayBuffer();
       state.musicBuffers[i] = await state.audioCtx.decodeAudioData(buf);
       state.musicAvailable[i] = true;
-      // Update track option UI
       const opt = document.querySelector(`.track-option[data-track="${i}"]`);
       if (opt) opt.classList.remove('disabled');
     } catch (e) {
@@ -1481,7 +1334,6 @@ async function loadMusicTracks() {
 function playMusic(trackNum) {
   stopMusic();
   if (!trackNum || !state.musicBuffers[trackNum]) return;
-
   const source = state.audioCtx.createBufferSource();
   source.buffer = state.musicBuffers[trackNum];
   source.loop = true;
@@ -1524,30 +1376,22 @@ function setMusicVolume(val) {
 
 function setMuted(muted) {
   state.muted = muted;
-  if (state.masterGain) {
-    state.masterGain.gain.setValueAtTime(muted ? 0 : 1, state.audioCtx.currentTime);
-  }
+  if (state.masterGain) state.masterGain.gain.setValueAtTime(muted ? 0 : 1, state.audioCtx.currentTime);
   $('muteBtn').textContent = muted ? '🔇' : '🔊';
-  const cb = $('muteCheckbox');
-  cb.classList.toggle('checked', muted);
+  $('muteCheckbox').classList.toggle('checked', muted);
 }
 
-// Sound effect generators
+// Sound effects
 function playTick(phase) {
   if (!state.audioCtx) return;
-  const ctx = state.audioCtx;
-  const t = ctx.currentTime;
-
-  // Noise burst for tick
+  const ctx = state.audioCtx; const t = ctx.currentTime;
   const dur = 0.02;
   const bufSize = ctx.sampleRate * dur;
   const noiseBuf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
   const data = noiseBuf.getChannelData(0);
   for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1);
-
   const noise = ctx.createBufferSource();
   noise.buffer = noiseBuf;
-
   const gain = ctx.createGain();
   let vol = 0.08;
   if (phase === 'warning') vol = 0.15;
@@ -1555,18 +1399,10 @@ function playTick(phase) {
   else if (phase === 'final10') vol = 0.35;
   gain.gain.setValueAtTime(vol, t);
   gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
-
   const filter = ctx.createBiquadFilter();
-  filter.type = 'highpass';
-  filter.frequency.value = 800;
-
-  noise.connect(filter);
-  filter.connect(gain);
-  gain.connect(state.sfxGain);
-  noise.start(t);
-  noise.stop(t + dur);
-
-  // Bass pulse for late phases
+  filter.type = 'highpass'; filter.frequency.value = 800;
+  noise.connect(filter); filter.connect(gain); gain.connect(state.sfxGain);
+  noise.start(t); noise.stop(t + dur);
   if (phase === 'warning' || phase === 'critical' || phase === 'final10') {
     const osc = ctx.createOscillator();
     osc.type = 'sine';
@@ -1575,159 +1411,115 @@ function playTick(phase) {
     let bVol = phase === 'final10' ? 0.3 : phase === 'critical' ? 0.2 : 0.1;
     g2.gain.setValueAtTime(bVol, t);
     g2.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
-    osc.connect(g2);
-    g2.connect(state.sfxGain);
-    osc.start(t);
-    osc.stop(t + 0.15);
+    osc.connect(g2); g2.connect(state.sfxGain);
+    osc.start(t); osc.stop(t + 0.15);
   }
 }
 
 function playCorrect() {
   if (!state.audioCtx) return;
-  const ctx = state.audioCtx;
-  const t = ctx.currentTime;
-  // C5 → E5 ascending chime
+  const ctx = state.audioCtx; const t = ctx.currentTime;
   [523.25, 659.25].forEach((freq, i) => {
-    const osc = ctx.createOscillator();
-    osc.type = 'sine';
-    osc.frequency.value = freq;
+    const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = freq;
     const g = ctx.createGain();
     g.gain.setValueAtTime(0.3, t + i * 0.12);
     g.gain.exponentialRampToValueAtTime(0.001, t + i * 0.12 + 0.2);
-    osc.connect(g);
-    g.connect(state.sfxGain);
-    osc.start(t + i * 0.12);
-    osc.stop(t + i * 0.12 + 0.25);
+    osc.connect(g); g.connect(state.sfxGain);
+    osc.start(t + i * 0.12); osc.stop(t + i * 0.12 + 0.25);
   });
 }
 
 function playWrong() {
   if (!state.audioCtx) return;
-  const ctx = state.audioCtx;
-  const t = ctx.currentTime;
-  const osc = ctx.createOscillator();
-  osc.type = 'sawtooth';
-  osc.frequency.value = 110;
+  const ctx = state.audioCtx; const t = ctx.currentTime;
+  const osc = ctx.createOscillator(); osc.type = 'sawtooth'; osc.frequency.value = 110;
   const g = ctx.createGain();
   g.gain.setValueAtTime(0.25, t);
   g.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
-  osc.connect(g);
-  g.connect(state.sfxGain);
-  osc.start(t);
-  osc.stop(t + 0.25);
+  osc.connect(g); g.connect(state.sfxGain);
+  osc.start(t); osc.stop(t + 0.25);
 }
 
 function playLockout() {
   if (!state.audioCtx) return;
-  const ctx = state.audioCtx;
-  const t = ctx.currentTime;
+  const ctx = state.audioCtx; const t = ctx.currentTime;
   [329.63, 261.63, 220].forEach((freq, i) => {
-    const osc = ctx.createOscillator();
-    osc.type = 'sine';
-    osc.frequency.value = freq;
+    const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = freq;
     const g = ctx.createGain();
     g.gain.setValueAtTime(0.25, t + i * 0.15);
     g.gain.exponentialRampToValueAtTime(0.001, t + i * 0.15 + 0.2);
-    osc.connect(g);
-    g.connect(state.sfxGain);
-    osc.start(t + i * 0.15);
-    osc.stop(t + i * 0.15 + 0.25);
+    osc.connect(g); g.connect(state.sfxGain);
+    osc.start(t + i * 0.15); osc.stop(t + i * 0.15 + 0.25);
   });
 }
 
 function playVictoryFanfare() {
   if (!state.audioCtx) return;
-  const ctx = state.audioCtx;
-  const t = ctx.currentTime;
-  // C5 → E5 → G5 → C6
-  const notes = [523.25, 659.25, 783.99, 1046.5];
-  notes.forEach((freq, i) => {
-    const osc = ctx.createOscillator();
-    osc.type = 'sine';
-    osc.frequency.value = freq;
+  const ctx = state.audioCtx; const t = ctx.currentTime;
+  [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+    const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = freq;
     const g = ctx.createGain();
-    const start = t + i * 0.2;
-    const dur = i === 3 ? 0.6 : 0.25;
+    const start = t + i * 0.2; const dur = i === 3 ? 0.6 : 0.25;
     g.gain.setValueAtTime(0.3, start);
     g.gain.exponentialRampToValueAtTime(0.001, start + dur);
-    osc.connect(g);
-    g.connect(state.sfxGain);
-    osc.start(start);
-    osc.stop(start + dur + 0.1);
+    osc.connect(g); g.connect(state.sfxGain);
+    osc.start(start); osc.stop(start + dur + 0.1);
   });
-  // Sustained C major chord
   setTimeout(() => {
     [261.63, 329.63, 392].forEach(freq => {
-      const osc = ctx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.value = freq;
-      const g = ctx.createGain();
-      const ct = ctx.currentTime;
+      const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = freq;
+      const g = ctx.createGain(); const ct = ctx.currentTime;
       g.gain.setValueAtTime(0.15, ct);
       g.gain.exponentialRampToValueAtTime(0.001, ct + 1.5);
-      osc.connect(g);
-      g.connect(state.sfxGain);
-      osc.start(ct);
-      osc.stop(ct + 1.6);
+      osc.connect(g); g.connect(state.sfxGain);
+      osc.start(ct); osc.stop(ct + 1.6);
     });
   }, 900);
 }
 
 function playKlaxon() {
   if (!state.audioCtx) return;
-  const ctx = state.audioCtx;
-  const t = ctx.currentTime;
+  const ctx = state.audioCtx; const t = ctx.currentTime;
   for (let i = 0; i < 6; i++) {
-    const osc = ctx.createOscillator();
-    osc.type = 'square';
+    const osc = ctx.createOscillator(); osc.type = 'square';
     osc.frequency.value = i % 2 === 0 ? 440 : 300;
     const g = ctx.createGain();
     g.gain.setValueAtTime(0.2, t + i * 0.5);
     g.gain.setValueAtTime(0, t + i * 0.5 + 0.48);
-    osc.connect(g);
-    g.connect(state.sfxGain);
-    osc.start(t + i * 0.5);
-    osc.stop(t + i * 0.5 + 0.5);
+    osc.connect(g); g.connect(state.sfxGain);
+    osc.start(t + i * 0.5); osc.stop(t + i * 0.5 + 0.5);
   }
 }
 
 function playBloop() {
   if (!state.audioCtx) return;
-  const ctx = state.audioCtx;
-  const t = ctx.currentTime;
-  const osc = ctx.createOscillator();
-  osc.type = 'sine';
+  const ctx = state.audioCtx; const t = ctx.currentTime;
+  const osc = ctx.createOscillator(); osc.type = 'sine';
   osc.frequency.setValueAtTime(400, t);
   osc.frequency.exponentialRampToValueAtTime(800, t + 0.1);
   const g = ctx.createGain();
   g.gain.setValueAtTime(0.2, t);
   g.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
-  osc.connect(g);
-  g.connect(state.sfxGain);
-  osc.start(t);
-  osc.stop(t + 0.2);
+  osc.connect(g); g.connect(state.sfxGain);
+  osc.start(t); osc.stop(t + 0.2);
 }
 
 // ============================================
-// CODE BOXES (GAME)
+// CODE BOXES
 // ============================================
 function buildCodeBoxes() {
   const container = $('codeBoxes');
   container.innerHTML = '';
   state.boxes = [];
-
   for (let i = 0; i < 4; i++) {
     state.boxes.push({ letter: '', solved: false, locked: false, strikes: 0 });
-
     const wrapper = document.createElement('div');
     wrapper.className = 'code-box-wrapper';
-
     const box = document.createElement('div');
     box.className = 'code-box';
     box.dataset.idx = i;
     box.innerHTML = `<span class="box-letter"></span><div class="underscore"></div><span class="locked-label">Locked</span>`;
     box.addEventListener('click', () => selectBox(i));
-
     const pips = document.createElement('div');
     pips.className = 'pips';
     for (let p = 0; p < state.attemptsPerBox; p++) {
@@ -1735,7 +1527,6 @@ function buildCodeBoxes() {
       pip.className = 'pip';
       pips.appendChild(pip);
     }
-
     wrapper.appendChild(box);
     wrapper.appendChild(pips);
     container.appendChild(wrapper);
@@ -1754,17 +1545,13 @@ function selectBox(idx) {
 function evaluateLetter(letter) {
   if (state.evaluating || state.gameOver) return;
   let idx = state.selectedBox;
-
-  // Auto-select first available box if none selected
   if (idx < 0 || state.boxes[idx].solved || state.boxes[idx].locked) {
     idx = state.boxes.findIndex(b => !b.solved && !b.locked);
     if (idx < 0) return;
     selectBox(idx);
   }
-
   const b = state.boxes[idx];
   if (b.solved || b.locked) return;
-
   state.evaluating = true;
   const boxEl = document.querySelectorAll('.code-box')[idx];
   const letterEl = boxEl.querySelector('.box-letter');
@@ -1774,43 +1561,25 @@ function evaluateLetter(letter) {
 
   setTimeout(() => {
     if (letter === state.exitCode[idx]) {
-      // Correct
-      b.solved = true;
-      b.letter = letter;
-      boxEl.classList.remove('selected');
-      boxEl.classList.add('correct');
+      b.solved = true; b.letter = letter;
+      boxEl.classList.remove('selected'); boxEl.classList.add('correct');
       playCorrect();
-
-      // Auto-select next unsolved box
       state.selectedBox = -1;
       const next = state.boxes.findIndex(bx => !bx.solved && !bx.locked);
       if (next >= 0) selectBox(next);
-
-      // Check victory
-      if (state.boxes.every(bx => bx.solved)) {
-        triggerVictory();
-      }
+      if (state.boxes.every(bx => bx.solved)) triggerVictory();
     } else {
-      // Wrong
       b.strikes++;
       boxEl.classList.add('wrong', 'flash-red');
       playWrong();
-
       setTimeout(() => {
         boxEl.classList.remove('wrong', 'flash-red');
-        letterEl.textContent = '';
-        underscoreEl.style.display = '';
-
-        // Update pips
+        letterEl.textContent = ''; underscoreEl.style.display = '';
         updatePips(idx);
-
         if (b.strikes >= state.attemptsPerBox) {
-          // Lockout
           b.locked = true;
-          boxEl.classList.remove('selected');
-          boxEl.classList.add('locked');
+          boxEl.classList.remove('selected'); boxEl.classList.add('locked');
           playLockout();
-          // Auto-select next
           state.selectedBox = -1;
           const next = state.boxes.findIndex(bx => !bx.solved && !bx.locked);
           if (next >= 0) selectBox(next);
@@ -1825,25 +1594,18 @@ function updatePips(idx) {
   const wrapper = document.querySelectorAll('.code-box-wrapper')[idx];
   const pips = wrapper.querySelectorAll('.pip');
   const b = state.boxes[idx];
-  pips.forEach((p, i) => {
-    p.classList.toggle('used', i < b.strikes);
-  });
+  pips.forEach((p, i) => p.classList.toggle('used', i < b.strikes));
 }
 
 // ============================================
 // ON-SCREEN KEYBOARD
 // ============================================
 function buildOSK() {
-  const osk = $('osk');
-  osk.innerHTML = '';
+  const osk = $('osk'); osk.innerHTML = '';
   'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(ch => {
     const key = document.createElement('div');
-    key.className = 'osk-key';
-    key.textContent = ch;
-    key.addEventListener('click', (e) => {
-      e.stopPropagation();
-      evaluateLetter(ch);
-    });
+    key.className = 'osk-key'; key.textContent = ch;
+    key.addEventListener('click', (e) => { e.stopPropagation(); evaluateLetter(ch); });
     osk.appendChild(key);
   });
 }
@@ -1861,21 +1623,19 @@ function startTimer() {
   updateClockDisplay();
   state.gameOver = false;
   state.isPaused = false;
+  state.timerRunning = true;
 
   state.timerInterval = setInterval(() => {
     if (state.isPaused || state.gameOver) return;
     state.timeRemaining--;
     updateClockDisplay();
     updateTimerPhase();
-
-    // Tick sound
     const t = state.timeRemaining;
     let phase = 'normal';
     if (t <= 10) phase = 'final10';
     else if (t <= 30) phase = 'critical';
     else if (t <= 120) phase = 'warning';
     playTick(phase);
-
     if (state.timeRemaining <= 0) {
       state.timeRemaining = 0;
       triggerMissionFailed();
@@ -1890,37 +1650,24 @@ function updateClockDisplay() {
 
 function updateTimerPhase() {
   const t = state.timeRemaining;
-  const clock = $('clock');
-  const pulse = $('bgPulse');
-
+  const clock = $('clock'); const pulse = $('bgPulse');
   clock.classList.remove('warning', 'critical');
   pulse.classList.remove('warning', 'critical');
-
-  if (t <= 30) {
-    clock.classList.add('critical');
-    pulse.classList.add('critical');
-  } else if (t <= 120) {
-    clock.classList.add('warning');
-    pulse.classList.add('warning');
-  }
+  if (t <= 30) { clock.classList.add('critical'); pulse.classList.add('critical'); }
+  else if (t <= 120) { clock.classList.add('warning'); pulse.classList.add('warning'); }
 }
 
 function addTime(seconds) {
   state.timeRemaining += seconds;
   updateClockDisplay();
   playBloop();
-
-  // Flash
   const flash = $('timeAddedFlash');
-  const min = Math.floor(seconds / 60);
-  const sec = seconds % 60;
+  const min = Math.floor(seconds / 60); const sec = seconds % 60;
   let txt = '+';
   if (min > 0) txt += min + ':' + String(sec).padStart(2, '0');
   else txt += sec + 's';
   flash.textContent = txt;
-  flash.classList.remove('show');
-  void flash.offsetWidth;
-  flash.classList.add('show');
+  flash.classList.remove('show'); void flash.offsetWidth; flash.classList.add('show');
 }
 
 // ============================================
@@ -1929,22 +1676,16 @@ function addTime(seconds) {
 function triggerVictory() {
   state.gameOver = true;
   clearInterval(state.timerInterval);
-  removeBeforeUnload();
-  releaseWakeLock();
+  removeBeforeUnload(); releaseWakeLock();
 
-  // Flash green
   const flashEl = document.createElement('div');
   flashEl.className = 'victory-flash';
   document.body.appendChild(flashEl);
   setTimeout(() => flashEl.remove(), 400);
 
-  // Music fade
   stopMusic(2000);
-
-  // Victory fanfare
   playVictoryFanfare();
 
-  // UI — show elapsed time on victory
   const totalDuration = state.durationMin * 60 + state.durationSec;
   const elapsedTime = totalDuration - state.timeRemaining;
   const timer = $('timerScreen');
@@ -1953,10 +1694,8 @@ function triggerVictory() {
   $('clock').textContent = formatTime(elapsedTime);
   $('nextTeamBtn').style.display = 'block';
 
-  // Submit score
   submitScore(true);
 
-  // Show leaderboard after 3s
   setTimeout(() => {
     timer.classList.add('compact');
     const vlb = $('victoryLeaderboard');
@@ -1968,25 +1707,16 @@ function triggerVictory() {
 function triggerMissionFailed() {
   state.gameOver = true;
   clearInterval(state.timerInterval);
-  removeBeforeUnload();
-  releaseWakeLock();
-
-  stopMusic(1000);
-  playKlaxon();
-
-  const timer = $('timerScreen');
-  timer.classList.add('state-failed');
+  removeBeforeUnload(); releaseWakeLock();
+  stopMusic(1000); playKlaxon();
+  $('timerScreen').classList.add('state-failed');
   $('nextTeamBtn').style.display = 'block';
-
-  // Disable code boxes
   document.querySelectorAll('.code-box').forEach(b => b.style.pointerEvents = 'none');
-
-  // Submit failure
   submitScore(false);
 }
 
 // ============================================
-// FIREBASE OPERATIONS
+// FIREBASE
 // ============================================
 function getScoresRef() {
   if (!firebaseReady || !db) return null;
@@ -1996,7 +1726,6 @@ function getScoresRef() {
 function submitScore(completed) {
   const ref = getScoresRef();
   if (!ref) return;
-
   const lettersFound = state.boxes.filter(b => b.solved).length;
   const totalDuration = state.durationMin * 60 + state.durationSec;
   const elapsedTime = totalDuration - state.timeRemaining;
@@ -2015,17 +1744,14 @@ function listenToScores(callback) {
   if (state.fbListener) state.fbListener();
   const ref = getScoresRef();
   if (!ref) { callback([]); return; }
-
   const unsub = ref.orderByChild('elapsedTime').on('value', snap => {
     const scores = [];
     snap.forEach(child => {
       const v = child.val();
       if (v.completed) {
-        // Compute elapsedTime for legacy entries that only have timeRemaining
         if (v.elapsedTime === undefined && v.totalDuration !== undefined) {
           v.elapsedTime = v.totalDuration - v.timeRemaining;
         } else if (v.elapsedTime === undefined) {
-          // Fallback for very old entries with no totalDuration
           v.elapsedTime = 0;
         }
         scores.push(v);
@@ -2034,11 +1760,7 @@ function listenToScores(callback) {
     scores.sort((a, b) => a.elapsedTime - b.elapsedTime);
     state.fbScores = scores;
     callback(scores);
-  }, err => {
-    console.warn('Firebase read error:', err);
-    callback([]);
-  });
-
+  }, err => { console.warn('Firebase read error:', err); callback([]); });
   state.fbListener = () => ref.off('value', unsub);
 }
 
@@ -2054,16 +1776,13 @@ function renderLeaderboard(container, highlightTeam) {
       container.innerHTML = '<div class="no-scores">No scores yet</div>';
       return;
     }
-
     let html = '<table class="leaderboard-table"><thead><tr><th>Rank</th><th>Team</th><th>Time</th></tr></thead><tbody>';
-    const maxShow = 20;
-    scores.slice(0, maxShow).forEach((s, i) => {
+    scores.slice(0, 20).forEach((s, i) => {
       const rank = i + 1;
       let rankClass = '';
       if (rank === 1) rankClass = 'rank-gold';
       else if (rank === 2) rankClass = 'rank-silver';
       else if (rank === 3) rankClass = 'rank-bronze';
-
       const isCurrent = highlightTeam && s.teamName === highlightTeam;
       html += `<tr class="${isCurrent ? 'current-team' : ''}">
         <td class="${rankClass}">#${rank}</td>
@@ -2102,10 +1821,10 @@ function checkPin() {
   const boxes = Array.from(document.querySelectorAll('#pinInputs .pin-box'));
   const entered = boxes.map(b => b.value).join('');
   if (entered === state.adminPin) {
+    const cb = state.pinCallback;
     closePinOverlay();
-    if (state.pinCallback) state.pinCallback();
+    if (cb) cb();
   } else {
-    // Shake
     $('pinInputs').classList.add('pin-error');
     setTimeout(() => {
       $('pinInputs').classList.remove('pin-error');
@@ -2116,18 +1835,37 @@ function checkPin() {
 }
 
 function showAdminOverlay() {
-  state.isPaused = true;
-  $('adminOverlay').classList.add('active');
-  updateBoxStatusUI();
+  // Pause timer if running
+  if (state.timerRunning && !state.gameOver) {
+    state.isPaused = true;
+  }
 
-  // Fill overlay code boxes with current code
-  const boxes = document.querySelectorAll('#overlayCodeBoxes .admin-code-box');
-  boxes.forEach((b, i) => b.value = state.exitCode[i] || '');
+  // Show/hide session-specific sections
+  const isSession = state.timerRunning && !state.gameOver;
+  $('adminTimerSection').style.display = isSession ? '' : 'none';
+  $('adminSetTimeSection').style.display = isSession ? '' : 'none';
+  $('adminBoxSection').style.display = isSession ? '' : 'none';
+  $('codeChangeWarning').style.display = isSession ? '' : 'none';
+
+  if (isSession) updateBoxStatusUI();
+
+  populateAdminFromState();
+  $('adminOverlay').classList.add('active');
 }
 
 function closeAdminOverlay() {
+  // Read and save all admin inputs
+  readAdminInputs();
+
+  // Update welcome screen to reflect changes
+  populateWelcomeFromState();
+
   $('adminOverlay').classList.remove('active');
-  state.isPaused = false;
+
+  // Resume timer if it was paused
+  if (state.timerRunning && !state.gameOver) {
+    state.isPaused = false;
+  }
 }
 
 function updateBoxStatusUI() {
@@ -2135,31 +1873,23 @@ function updateBoxStatusUI() {
   container.innerHTML = '';
   state.boxes.forEach((b, i) => {
     const row = document.createElement('div');
-    row.className = 'box-status';
-    row.style.marginBottom = '6px';
-
+    row.className = 'box-status'; row.style.marginBottom = '6px';
     const dot = document.createElement('div');
     dot.className = 'status-indicator ' + (b.solved ? 'solved' : b.locked ? 'locked-ind' : 'active');
     row.appendChild(dot);
-
     const label = document.createElement('span');
     label.textContent = `Box ${i + 1}: ${b.solved ? 'SOLVED (' + b.letter + ')' : b.locked ? 'LOCKED' : `Active (${state.attemptsPerBox - b.strikes} left)`}`;
     row.appendChild(label);
-
     if (b.locked) {
       const resetBtn = document.createElement('button');
-      resetBtn.className = 'reset-box-btn';
-      resetBtn.textContent = 'Reset';
+      resetBtn.className = 'reset-box-btn'; resetBtn.textContent = 'Reset';
       resetBtn.addEventListener('click', () => {
-        b.locked = false;
-        b.strikes = 0;
+        b.locked = false; b.strikes = 0;
         const boxEl = document.querySelectorAll('.code-box')[i];
         boxEl.classList.remove('locked');
         boxEl.querySelector('.box-letter').textContent = '';
         boxEl.querySelector('.underscore').style.display = '';
-        // Reset pips
-        const pips = document.querySelectorAll('.code-box-wrapper')[i].querySelectorAll('.pip');
-        pips.forEach(p => p.classList.remove('used'));
+        document.querySelectorAll('.code-box-wrapper')[i].querySelectorAll('.pip').forEach(p => p.classList.remove('used'));
         updateBoxStatusUI();
       });
       row.appendChild(resetBtn);
@@ -2182,22 +1912,14 @@ function closeConfirm() {
 // ============================================
 // SCREEN NAVIGATION
 // ============================================
-function goToTeamScreen() {
-  readAdminInputs();
-  $('teamOpName').textContent = state.opName;
-  $('teamNameInput').value = '';
-  showScreen('teamScreen');
-  $('teamNameInput').focus();
-}
-
 function goToTimer() {
+  readWelcomeInputs();
   state.teamName = $('teamNameInput').value.trim().toUpperCase() || 'UNKNOWN UNIT';
   $('timerOpHeader').textContent = state.opName;
 
-  // Reset timer screen state
   const timer = $('timerScreen');
   timer.classList.remove('state-failed', 'state-victory', 'compact');
-  $('clock').classList.remove('victory', 'warning', 'critical', 'failed');
+  $('clock').classList.remove('victory', 'warning', 'critical');
   $('bgPulse').classList.remove('warning', 'critical');
   $('nextTeamBtn').style.display = 'none';
   $('victoryLeaderboard').classList.remove('show');
@@ -2206,42 +1928,30 @@ function goToTimer() {
   buildCodeBoxes();
   buildOSK();
   checkTouch();
-
   showScreen('timerScreen');
 
-  // Audio init (must be on user gesture)
   initAudio();
+  if (state.currentTrack > 0 && state.musicAvailable[state.currentTrack]) playMusic(state.currentTrack);
 
-  // Start music
-  if (state.currentTrack > 0 && state.musicAvailable[state.currentTrack]) {
-    playMusic(state.currentTrack);
-  }
-
-  // Fullscreen
-  try {
-    document.documentElement.requestFullscreen().catch(() => {});
-  } catch(e) {}
-
-  // Wake lock
+  try { document.documentElement.requestFullscreen().catch(() => {}); } catch(e) {}
   requestWakeLock();
-
-  // Navigation guard
   addBeforeUnload();
-
-  // Start timer
   startTimer();
-
-  // Select first box
   selectBox(0);
 }
 
-function goToAdmin() {
+function goToWelcome() {
   cleanupSession();
-  populateAdminFromState();
-  showScreen('adminScreen');
+  populateWelcomeFromState();
+  $('teamNameInput').value = '';
+  showScreen('welcomeScreen');
+  $('teamNameInput').focus();
 }
 
 function goToFullscreenLeaderboard() {
+  // Remember where we came from
+  if ($('welcomeScreen').classList.contains('active')) state.previousScreen = 'welcomeScreen';
+  else if ($('timerScreen').classList.contains('active')) state.previousScreen = 'timerScreen';
   showScreen('leaderboardScreen');
   renderLeaderboard($('fullscreenLbBody'));
 }
@@ -2254,60 +1964,32 @@ function cleanupSession() {
   if (state.fbListener) { state.fbListener(); state.fbListener = null; }
   state.gameOver = false;
   state.isPaused = false;
+  state.timerRunning = false;
   state.selectedBox = -1;
-
-  // Exit fullscreen
   if (document.fullscreenElement) {
     try { document.exitFullscreen().catch(() => {}); } catch(e) {}
   }
-}
-
-function goToNextTeam() {
-  cleanupSession();
-  $('teamOpName').textContent = state.opName;
-  $('teamNameInput').value = '';
-  showScreen('teamScreen');
-  $('teamNameInput').focus();
 }
 
 // ============================================
 // WAKE LOCK & BEFOREUNLOAD
 // ============================================
 async function requestWakeLock() {
-  try {
-    if ('wakeLock' in navigator) {
-      state.wakeLock = await navigator.wakeLock.request('screen');
-    }
-  } catch(e) {}
+  try { if ('wakeLock' in navigator) state.wakeLock = await navigator.wakeLock.request('screen'); } catch(e) {}
 }
-
 function releaseWakeLock() {
-  if (state.wakeLock) {
-    try { state.wakeLock.release(); } catch(e) {}
-    state.wakeLock = null;
-  }
+  if (state.wakeLock) { try { state.wakeLock.release(); } catch(e) {} state.wakeLock = null; }
 }
-
-function beforeUnloadHandler(e) {
-  e.preventDefault();
-  e.returnValue = '';
-}
-
-function addBeforeUnload() {
-  window.addEventListener('beforeunload', beforeUnloadHandler);
-}
-
-function removeBeforeUnload() {
-  window.removeEventListener('beforeunload', beforeUnloadHandler);
-}
+function beforeUnloadHandler(e) { e.preventDefault(); e.returnValue = ''; }
+function addBeforeUnload() { window.addEventListener('beforeunload', beforeUnloadHandler); }
+function removeBeforeUnload() { window.removeEventListener('beforeunload', beforeUnloadHandler); }
 
 // ============================================
 // TRACK UI
 // ============================================
 function updateTrackUI() {
   document.querySelectorAll('.track-option').forEach(opt => {
-    const t = parseInt(opt.dataset.track);
-    opt.classList.toggle('active-track', t === state.currentTrack);
+    opt.classList.toggle('active-track', parseInt(opt.dataset.track) === state.currentTrack);
   });
 }
 
@@ -2316,67 +1998,38 @@ function updateTrackUI() {
 // ============================================
 function init() {
   loadSettings();
+  populateWelcomeFromState();
   populateAdminFromState();
 
-  // Admin code boxes — uppercase, auto-advance
-  document.querySelectorAll('#adminScreen .admin-code-box').forEach(box => {
-    box.addEventListener('input', () => {
-      box.value = box.value.toUpperCase().replace(/[^A-Z]/g, '');
-      if (box.value && box.nextElementSibling) box.nextElementSibling.focus();
-      saveSettings();
-    });
-  });
-
-  // Admin inputs — save on change
-  ['adminMinutes', 'adminSeconds', 'adminOpName', 'adminAttempts', 'adminEventId', 'adminPin'].forEach(id => {
-    $(id).addEventListener('change', () => { readAdminInputs(); });
-    $(id).addEventListener('input', () => { readAdminInputs(); });
-  });
-
-  // Start button
-  $('startBtn').addEventListener('click', goToTeamScreen);
-
-  // Advanced toggle
-  $('advancedToggle').addEventListener('click', () => {
-    const p = $('advancedPanel');
-    const t = $('advancedToggle');
-    p.classList.toggle('open');
-    t.classList.toggle('open');
-  });
-
-  // Team name — uppercase
+  // Welcome screen — uppercase team name
   $('teamNameInput').addEventListener('input', () => {
     $('teamNameInput').value = $('teamNameInput').value.toUpperCase();
   });
 
+  // Welcome screen — save duration on change
+  ['welcomeMinutes', 'welcomeSeconds'].forEach(id => {
+    $(id).addEventListener('change', readWelcomeInputs);
+    $(id).addEventListener('input', readWelcomeInputs);
+  });
+
   // Begin mission
   $('beginBtn').addEventListener('click', goToTimer);
-
-  // Team name enter key
-  $('teamNameInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') goToTimer();
-  });
+  $('teamNameInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') goToTimer(); });
 
   // Keyboard input on timer screen
   document.addEventListener('keydown', (e) => {
     if (!$('timerScreen').classList.contains('active')) return;
     if (state.gameOver) return;
-    // Ignore if overlay is open
     if ($('adminOverlay').classList.contains('active')) return;
     if ($('pinOverlay').classList.contains('active')) return;
-
     const key = e.key.toUpperCase();
-    if (/^[A-Z]$/.test(key)) {
-      e.preventDefault();
-      evaluateLetter(key);
-    }
+    if (/^[A-Z]$/.test(key)) { e.preventDefault(); evaluateLetter(key); }
   });
 
-  // Lock button (admin access)
-  const lockBtn = $('lockBtn');
+  // ---- GLOBAL LOCK BUTTON ----
+  const lockBtn = $('globalLockBtn');
   lockBtn.addEventListener('click', () => {
-    if (state.gameOver) return;
-    showPinOverlay(() => showAdminOverlay());
+    showPinOverlay(showAdminOverlay);
   });
 
   // Long press to reset PIN
@@ -2386,58 +2039,41 @@ function init() {
   lockBtn.addEventListener('mouseleave', cancelLockPress);
   lockBtn.addEventListener('touchend', cancelLockPress);
   lockBtn.addEventListener('touchcancel', cancelLockPress);
-
   function startLockPress() {
     state.lockPressTimer = setTimeout(() => {
-      showConfirm('Reset admin PIN to 0000?', () => {
-        state.adminPin = '0000';
-        saveSettings();
-      });
+      showConfirm('Reset admin PIN to 0000?', () => { state.adminPin = '0000'; saveSettings(); });
     }, 5000);
   }
-  function cancelLockPress() {
-    clearTimeout(state.lockPressTimer);
-  }
+  function cancelLockPress() { clearTimeout(state.lockPressTimer); }
 
-  // Mute button & sound popup
+  // ---- SOUND CONTROLS ----
   $('muteBtn').addEventListener('click', (e) => {
     e.stopPropagation();
     $('soundPopup').classList.toggle('active');
   });
-
-  // Close sound popup on outside click
   document.addEventListener('click', (e) => {
     if (!$('soundPopup').contains(e.target) && e.target !== $('muteBtn')) {
       $('soundPopup').classList.remove('active');
     }
   });
-
-  // Track selection
   document.querySelectorAll('.track-option').forEach(opt => {
     opt.addEventListener('click', () => {
       if (opt.classList.contains('disabled')) return;
       switchTrack(parseInt(opt.dataset.track));
     });
   });
-
-  // Volume slider
   $('volumeSlider').addEventListener('input', () => {
     const val = parseInt($('volumeSlider').value);
     $('volumeValue').textContent = val + '%';
     setMusicVolume(val / 100);
   });
+  $('muteToggle').addEventListener('click', () => setMuted(!state.muted));
 
-  // Mute toggle
-  $('muteToggle').addEventListener('click', () => {
-    setMuted(!state.muted);
-  });
-
-  // Trophy button — leaderboard overlay
+  // ---- TROPHY / LEADERBOARD ----
   $('trophyBtn').addEventListener('click', () => {
     $('leaderboardOverlay').classList.add('active');
     renderLeaderboard($('overlayLbBody'));
   });
-
   $('closeLbOverlay').addEventListener('click', () => {
     $('leaderboardOverlay').classList.remove('active');
     if (state.fbListener) { state.fbListener(); state.fbListener = null; }
@@ -2447,42 +2083,58 @@ function init() {
     if (state.fbListener) { state.fbListener(); state.fbListener = null; }
   });
 
-  // PIN overlay
+  // ---- PIN OVERLAY ----
   document.querySelectorAll('#pinInputs .pin-box').forEach((box, i, arr) => {
     box.addEventListener('input', () => {
       box.value = box.value.replace(/[^0-9]/g, '');
       if (box.value && i < arr.length - 1) arr[i + 1].focus();
-      // Auto-submit when all 4 filled
-      if (Array.from(arr).every(b => b.value)) {
-        setTimeout(checkPin, 50);
-      }
+      if (Array.from(arr).every(b => b.value)) setTimeout(checkPin, 50);
     });
     box.addEventListener('keydown', (e) => {
-      if (e.key === 'Backspace' && !box.value && i > 0) {
-        arr[i - 1].focus();
-      }
+      if (e.key === 'Backspace' && !box.value && i > 0) arr[i - 1].focus();
       if (e.key === 'Enter') checkPin();
     });
   });
-
   $('pinSubmitBtn').addEventListener('click', checkPin);
   $('pinBackdrop').addEventListener('click', closePinOverlay);
 
-  // Admin overlay controls
+  // ---- ADMIN OVERLAY ----
+  // Admin code boxes — uppercase, auto-advance
+  document.querySelectorAll('#adminCodeBoxes .admin-code-box').forEach(box => {
+    box.addEventListener('input', () => {
+      box.value = box.value.toUpperCase().replace(/[^A-Z]/g, '');
+      if (box.value && box.nextElementSibling) box.nextElementSibling.focus();
+    });
+  });
+
+  // Apply code button
+  $('applyCodeBtn').addEventListener('click', () => {
+    const isSession = state.timerRunning && !state.gameOver;
+    if (isSession) {
+      showConfirm('Changing the code will reset all box progress. Continue?', () => {
+        readAdminInputs();
+        buildCodeBoxes(); buildOSK(); checkTouch();
+        updateBoxStatusUI();
+        selectBox(0);
+      });
+    } else {
+      readAdminInputs();
+    }
+  });
+
+  // Add time presets
   document.querySelectorAll('.time-preset-btn[data-add]').forEach(btn => {
     btn.addEventListener('click', () => {
       addTime(parseInt(btn.dataset.add));
       updateBoxStatusUI();
     });
   });
-
   $('customAddBtn').addEventListener('click', () => {
     const min = parseInt($('customAddMin').value) || 0;
     const sec = parseInt($('customAddSec').value) || 0;
     const total = min * 60 + sec;
     if (total > 0) addTime(total);
   });
-
   $('setTimeBtn').addEventListener('click', () => {
     const min = parseInt($('setTimeMin').value) || 0;
     const sec = parseInt($('setTimeSec').value) || 0;
@@ -2490,56 +2142,35 @@ function init() {
     updateClockDisplay();
   });
 
-  $('changeCodeBtn').addEventListener('click', () => {
-    showConfirm('Changing the code will reset all box progress. Continue?', () => {
-      const boxes = document.querySelectorAll('#overlayCodeBoxes .admin-code-box');
-      state.exitCode = Array.from(boxes).map(b => (b.value || 'A').toUpperCase().charAt(0));
-      buildCodeBoxes();
-      checkTouch();
-      buildOSK();
-      updateBoxStatusUI();
-      selectBox(0);
-      saveSettings();
-    });
+  // Close admin overlay
+  $('adminCloseBtn').addEventListener('click', closeAdminOverlay);
+
+  // Leaderboard buttons in admin
+  $('showLeaderboardBtn').addEventListener('click', () => {
+    closeAdminOverlay();
+    goToFullscreenLeaderboard();
   });
-
-  // Overlay code boxes uppercase
-  document.querySelectorAll('#overlayCodeBoxes .admin-code-box').forEach(box => {
-    box.addEventListener('input', () => {
-      box.value = box.value.toUpperCase().replace(/[^A-Z]/g, '');
-      if (box.value && box.nextElementSibling) box.nextElementSibling.focus();
-    });
-  });
-
-  $('resumeBtn').addEventListener('click', closeAdminOverlay);
-
-  // Next team button — PIN protected
-  $('nextTeamBtn').addEventListener('click', () => {
-    showPinOverlay(goToNextTeam);
-  });
-
-  // Admin panel buttons
-  $('showLeaderboardBtn').addEventListener('click', goToFullscreenLeaderboard);
   $('clearLeaderboardBtn').addEventListener('click', () => {
     readAdminInputs();
-    showConfirm(`This will permanently delete all scores for event "${state.eventId}". Are you sure?`, () => {
-      clearLeaderboard();
-    });
+    showConfirm(`This will permanently delete all scores for event "${state.eventId}". Are you sure?`, clearLeaderboard);
   });
 
-  $('lbAdminBtn').addEventListener('click', () => {
+  // Next team button — PIN protected → goes to welcome screen
+  $('nextTeamBtn').addEventListener('click', () => {
+    showPinOverlay(goToWelcome);
+  });
+
+  // Fullscreen leaderboard back button
+  $('lbBackBtn').addEventListener('click', () => {
     if (state.fbListener) { state.fbListener(); state.fbListener = null; }
-    goToAdmin();
+    showScreen(state.previousScreen);
   });
 
   // Confirm dialog
-  $('confirmYes').addEventListener('click', () => {
-    if (state.confirmCallback) state.confirmCallback();
-    closeConfirm();
-  });
+  $('confirmYes').addEventListener('click', () => { if (state.confirmCallback) state.confirmCallback(); closeConfirm(); });
   $('confirmNo').addEventListener('click', closeConfirm);
 
-  // Initialize volume slider display
+  // Initialize volume slider
   $('volumeSlider').value = state.musicVolume * 100;
   $('volumeValue').textContent = Math.round(state.musicVolume * 100) + '%';
   updateTrackUI();
