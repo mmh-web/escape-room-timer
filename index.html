@@ -956,15 +956,15 @@ body::after {
 <div class="sound-popup" id="soundPopup">
   <div class="track-option active-track" data-track="1">
     <div class="track-radio"></div>
-    <span>Track 1</span>
+    <span>Tension</span>
   </div>
   <div class="track-option" data-track="2">
     <div class="track-radio"></div>
-    <span>Track 2</span>
+    <span>Relax</span>
   </div>
   <div class="track-option" data-track="3">
     <div class="track-radio"></div>
-    <span>Track 3</span>
+    <span>Action</span>
   </div>
   <div class="track-option" data-track="0">
     <div class="track-radio"></div>
@@ -1335,7 +1335,7 @@ function initAudio() {
 async function loadMusicTracks() {
   for (let i = 1; i <= 3; i++) {
     try {
-      const resp = await fetch(`track${i}.mp3`);
+      const resp = await fetch(`music/track${i}.mp3`);
       if (!resp.ok) throw new Error('Not found');
       const buf = await resp.arrayBuffer();
       state.musicBuffers[i] = await state.audioCtx.decodeAudioData(buf);
