@@ -474,9 +474,15 @@ body::after {
 }
 .corner-btn:hover { opacity: 1; }
 
+.back-btn { top: 8px; left: 8px; }
 .mute-btn { bottom: 8px; left: 8px; }
-.trophy-btn { bottom: 8px; left: 50%; transform: translateX(-50%); }
-.fullscreen-btn { bottom: 8px; right: 52px; }
+.trophy-btn { top: 8px; left: 50%; transform: translateX(-50%); }
+.fullscreen-btn {
+  bottom: 8px; left: 50%; transform: translateX(-50%);
+  color: var(--gray);
+  display: flex; align-items: center; justify-content: center;
+}
+.fullscreen-btn svg { width: clamp(18px, 2vw, 24px); height: clamp(18px, 2vw, 24px); }
 
 /* ============================================
    OVERLAYS
@@ -982,10 +988,15 @@ body::after {
 
   <button class="next-team-btn" id="nextTeamBtn">Next Team</button>
 
-  <!-- Timer corner buttons (mute + trophy + fullscreen — lock is global) -->
+  <!-- Timer corner buttons -->
+  <button class="corner-btn back-btn" id="backBtn" title="Back to setup">◀</button>
   <button class="corner-btn mute-btn" id="muteBtn" title="Sound">🔊</button>
   <button class="corner-btn trophy-btn" id="trophyBtn" title="Leaderboard">🏆</button>
-  <button class="corner-btn fullscreen-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
+  <button class="corner-btn fullscreen-btn" id="fullscreenBtn" title="Fullscreen">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M1 7V1h6M13 1h6v6M19 13v6h-6M7 19H1v-6"/>
+    </svg>
+  </button>
 
   <!-- Sound popup -->
   <div class="sound-popup" id="soundPopup">
@@ -2078,6 +2089,17 @@ function init() {
     setMusicVolume(val / 100);
   });
   $('muteToggle').addEventListener('click', () => setMuted(!state.muted));
+
+  // ---- BACK BUTTON ----
+  $('backBtn').addEventListener('click', () => {
+    if (state.timerRunning && !state.gameOver) {
+      showConfirm('Abort mission and return to setup?', () => {
+        goToWelcome();
+      });
+    } else {
+      goToWelcome();
+    }
+  });
 
   // ---- FULLSCREEN ----
   $('fullscreenBtn').addEventListener('click', () => {
