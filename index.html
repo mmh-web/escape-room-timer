@@ -67,10 +67,8 @@ body::after {
 /* ============================================
    GLOBAL LOCK BUTTON (all screens)
    ============================================ */
-#globalLockBtn {
+#globalLockBtn, #globalMuteBtn, #globalFullscreenBtn {
   position: fixed;
-  bottom: 8px;
-  right: 8px;
   z-index: 400;
   background: none;
   border: none;
@@ -81,7 +79,14 @@ body::after {
   padding: 12px;
   line-height: 1;
 }
-#globalLockBtn:hover { opacity: 1; }
+#globalLockBtn:hover, #globalMuteBtn:hover, #globalFullscreenBtn:hover { opacity: 1; }
+#globalLockBtn { bottom: 8px; right: 8px; }
+#globalMuteBtn { bottom: 8px; left: 8px; }
+#globalFullscreenBtn {
+  bottom: 8px; right: 52px;
+  color: var(--gray);
+  display: flex; align-items: center; justify-content: center;
+}
 
 /* ============================================
    WELCOME SCREEN
@@ -475,14 +480,7 @@ body::after {
 .corner-btn:hover { opacity: 1; }
 
 .back-btn { top: 8px; left: 8px; }
-.mute-btn { bottom: 8px; left: 8px; }
 .trophy-btn { top: 8px; left: 50%; transform: translateX(-50%); }
-.fullscreen-btn {
-  bottom: 8px; left: 50%; transform: translateX(-50%);
-  color: var(--gray);
-  display: flex; align-items: center; justify-content: center;
-}
-.fullscreen-btn svg { width: clamp(18px, 2vw, 24px); height: clamp(18px, 2vw, 24px); }
 
 /* ============================================
    OVERLAYS
@@ -550,10 +548,10 @@ body::after {
 /* Sound popup */
 .sound-popup {
   display: none;
-  position: absolute;
+  position: fixed;
   bottom: 52px;
   left: 8px;
-  z-index: 200;
+  z-index: 450;
   background: #111;
   border: 1px solid var(--gray-dark);
   padding: 16px;
@@ -945,8 +943,43 @@ body::after {
 </head>
 <body>
 
-<!-- ======== GLOBAL LOCK BUTTON (always visible) ======== -->
+<!-- ======== GLOBAL BUTTONS (always visible on all screens) ======== -->
 <button id="globalLockBtn" title="Admin">🔒</button>
+<button id="globalMuteBtn" title="Sound">🔊</button>
+<button id="globalFullscreenBtn" title="Fullscreen">
+  <svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <path d="M1 7V1h6M13 1h6v6M19 13v6h-6M7 19H1v-6"/>
+  </svg>
+</button>
+
+<!-- Sound popup (global) -->
+<div class="sound-popup" id="soundPopup">
+  <div class="track-option active-track" data-track="1">
+    <div class="track-radio"></div>
+    <span>Track 1</span>
+  </div>
+  <div class="track-option" data-track="2">
+    <div class="track-radio"></div>
+    <span>Track 2</span>
+  </div>
+  <div class="track-option" data-track="3">
+    <div class="track-radio"></div>
+    <span>Track 3</span>
+  </div>
+  <div class="track-option" data-track="0">
+    <div class="track-radio"></div>
+    <span>Off</span>
+  </div>
+  <div class="volume-row">
+    <span>Music</span>
+    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
+    <span id="volumeValue">40%</span>
+  </div>
+  <div class="mute-toggle" id="muteToggle">
+    <div class="mute-checkbox" id="muteCheckbox"></div>
+    <span>Mute All</span>
+  </div>
+</div>
 
 <!-- ======== WELCOME SCREEN ======== -->
 <div id="welcomeScreen" class="screen active">
@@ -988,44 +1021,9 @@ body::after {
 
   <button class="next-team-btn" id="nextTeamBtn">Next Team</button>
 
-  <!-- Timer corner buttons -->
+  <!-- Timer-only buttons -->
   <button class="corner-btn back-btn" id="backBtn" title="Back to setup">◀</button>
-  <button class="corner-btn mute-btn" id="muteBtn" title="Sound">🔊</button>
   <button class="corner-btn trophy-btn" id="trophyBtn" title="Leaderboard">🏆</button>
-  <button class="corner-btn fullscreen-btn" id="fullscreenBtn" title="Fullscreen">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <path d="M1 7V1h6M13 1h6v6M19 13v6h-6M7 19H1v-6"/>
-    </svg>
-  </button>
-
-  <!-- Sound popup -->
-  <div class="sound-popup" id="soundPopup">
-    <div class="track-option active-track" data-track="1">
-      <div class="track-radio"></div>
-      <span>Track 1</span>
-    </div>
-    <div class="track-option" data-track="2">
-      <div class="track-radio"></div>
-      <span>Track 2</span>
-    </div>
-    <div class="track-option" data-track="3">
-      <div class="track-radio"></div>
-      <span>Track 3</span>
-    </div>
-    <div class="track-option" data-track="0">
-      <div class="track-radio"></div>
-      <span>Off</span>
-    </div>
-    <div class="volume-row">
-      <span>Music</span>
-      <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
-      <span id="volumeValue">40%</span>
-    </div>
-    <div class="mute-toggle" id="muteToggle">
-      <div class="mute-checkbox" id="muteCheckbox"></div>
-      <span>Mute All</span>
-    </div>
-  </div>
 </div>
 
 <!-- ======== FULLSCREEN LEADERBOARD ======== -->
@@ -1398,7 +1396,7 @@ function setMusicVolume(val) {
 function setMuted(muted) {
   state.muted = muted;
   if (state.masterGain) state.masterGain.gain.setValueAtTime(muted ? 0 : 1, state.audioCtx.currentTime);
-  $('muteBtn').textContent = muted ? '🔇' : '🔊';
+  $('globalMuteBtn').textContent = muted ? '🔇' : '🔊';
   $('muteCheckbox').classList.toggle('checked', muted);
 }
 
@@ -2068,12 +2066,12 @@ function init() {
   function cancelLockPress() { clearTimeout(state.lockPressTimer); }
 
   // ---- SOUND CONTROLS ----
-  $('muteBtn').addEventListener('click', (e) => {
+  $('globalMuteBtn').addEventListener('click', (e) => {
     e.stopPropagation();
     $('soundPopup').classList.toggle('active');
   });
   document.addEventListener('click', (e) => {
-    if (!$('soundPopup').contains(e.target) && e.target !== $('muteBtn')) {
+    if (!$('soundPopup').contains(e.target) && e.target !== $('globalMuteBtn')) {
       $('soundPopup').classList.remove('active');
     }
   });
@@ -2102,7 +2100,7 @@ function init() {
   });
 
   // ---- FULLSCREEN ----
-  $('fullscreenBtn').addEventListener('click', () => {
+  $('globalFullscreenBtn').addEventListener('click', () => {
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(() => {});
     } else {
